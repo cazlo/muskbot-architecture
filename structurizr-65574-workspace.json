@@ -1,0 +1,1190 @@
+{
+    "id": 65574,
+    "name": "Muskbot",
+    "description": "A system to analyze and action upon a variety of day trading strategies",
+    "revision": 20,
+    "lastModifiedDate": "2021-04-11T23:32:23Z",
+    "lastModifiedUser": "paettiea@gmail.com",
+    "lastModifiedAgent": "structurizr-web/2340",
+    "model": {
+        "enterprise": {
+            "name": "Skynet"
+        },
+        "people": [
+            {
+                "id": "11",
+                "tags": "Element,Person",
+                "name": "Bot Owner",
+                "description": "the person who owns this bot",
+                "relationships": [
+                    {
+                        "id": "29",
+                        "tags": "Relationship",
+                        "sourceId": "11",
+                        "destinationId": "1",
+                        "description": "Manages trade simulation training runs",
+                        "technology": "Web Browser"
+                    },
+                    {
+                        "id": "47",
+                        "tags": "Relationship",
+                        "sourceId": "11",
+                        "destinationId": "3",
+                        "description": "performs db migrations",
+                        "technology": "CLI"
+                    },
+                    {
+                        "id": "31",
+                        "tags": "Relationship",
+                        "sourceId": "11",
+                        "destinationId": "9",
+                        "description": "Manages crypto wallets, API keys",
+                        "technology": "Web browser"
+                    }
+                ],
+                "location": "Internal"
+            }
+        ],
+        "softwareSystems": [
+            {
+                "id": "68",
+                "tags": "Element,Software System",
+                "name": "Cloud Storage",
+                "description": "some easy to use cloud storage system like Amazon S3, Google Drive, Dropbox, etc.",
+                "relationships": [
+                    {
+                        "id": "70",
+                        "tags": "Relationship",
+                        "sourceId": "68",
+                        "destinationId": "67",
+                        "description": "read database backup"
+                    }
+                ],
+                "location": "Unspecified"
+            },
+            {
+                "id": "9",
+                "tags": "Element,Software System",
+                "url": "https://api.pro.coinbase.com",
+                "name": "Coinbase Pro API",
+                "relationships": [
+                    {
+                        "id": "51",
+                        "tags": "Relationship",
+                        "sourceId": "9",
+                        "destinationId": "2",
+                        "description": "reads crypto trade information",
+                        "technology": "REST"
+                    },
+                    {
+                        "id": "26",
+                        "tags": "Relationship",
+                        "sourceId": "9",
+                        "destinationId": "1",
+                        "description": "Provides historical crypto trade information",
+                        "technology": "REST"
+                    }
+                ],
+                "location": "External"
+            },
+            {
+                "id": "1",
+                "tags": "Element,Software System,muskbot,crypto,trade,financial",
+                "name": "Muskbot",
+                "description": "A bot which attempts to make money by buying low and selling high",
+                "relationships": [
+                    {
+                        "id": "30",
+                        "tags": "Relationship",
+                        "sourceId": "1",
+                        "destinationId": "11",
+                        "description": "Provides view on historical crypto trades",
+                        "technology": "Web Browser"
+                    },
+                    {
+                        "id": "27",
+                        "tags": "Relationship",
+                        "sourceId": "1",
+                        "destinationId": "9",
+                        "description": "Performs crypto buys and sells",
+                        "technology": "REST"
+                    }
+                ],
+                "location": "Internal",
+                "containers": [
+                    {
+                        "id": "2",
+                        "tags": "Element,Container",
+                        "name": "coinbase-scraper",
+                        "description": "A system to poll the public coinbase-pro API to backfill trade ticker information",
+                        "relationships": [
+                            {
+                                "id": "17",
+                                "tags": "Relationship",
+                                "sourceId": "2",
+                                "destinationId": "4",
+                                "description": "writes crypto trade ticker information",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "40",
+                                "tags": "Relationship,write",
+                                "sourceId": "2",
+                                "destinationId": "34",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "39",
+                                "tags": "Relationship,write",
+                                "sourceId": "2",
+                                "destinationId": "33",
+                                "description": "write",
+                                "technology": "SQL"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    },
+                    {
+                        "id": "6",
+                        "tags": "Element,Container",
+                        "name": "control-base-api",
+                        "description": "an api intended to facilitate viewing information stored in the databse",
+                        "relationships": [
+                            {
+                                "id": "24",
+                                "tags": "Relationship",
+                                "sourceId": "6",
+                                "destinationId": "7",
+                                "description": "queries historical trade information, tweet",
+                                "technology": "REST"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    },
+                    {
+                        "id": "7",
+                        "tags": "Element,Container",
+                        "name": "control-base-ui",
+                        "description": "A UI for viewing historical crypto trade information",
+                        "relationships": [
+                            {
+                                "id": "55",
+                                "tags": "Relationship",
+                                "sourceId": "7",
+                                "destinationId": "8",
+                                "description": "run job",
+                                "technology": "REST"
+                            },
+                            {
+                                "id": "23",
+                                "tags": "Relationship",
+                                "sourceId": "7",
+                                "destinationId": "11",
+                                "description": "displays historical trade information",
+                                "technology": "web browser"
+                            },
+                            {
+                                "id": "57",
+                                "tags": "Relationship",
+                                "sourceId": "7",
+                                "destinationId": "49",
+                                "description": "initiate training runs",
+                                "technology": "REST"
+                            }
+                        ],
+                        "technology": "react"
+                    },
+                    {
+                        "id": "4",
+                        "tags": "Element,Container",
+                        "name": "database",
+                        "description": "a common transactional datastore for managing system state in a safe way",
+                        "relationships": [
+                            {
+                                "id": "25",
+                                "tags": "Relationship",
+                                "sourceId": "4",
+                                "destinationId": "6",
+                                "description": "reads historical trade, tweet information",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "72",
+                                "tags": "Relationship",
+                                "sourceId": "4",
+                                "destinationId": "67",
+                                "description": "create backup"
+                            }
+                        ],
+                        "technology": "postgres, docker",
+                        "components": [
+                            {
+                                "id": "43",
+                                "tags": "Element,Component,table",
+                                "name": "all tables",
+                                "description": "all tables described here",
+                                "relationships": [
+                                    {
+                                        "id": "66",
+                                        "tags": "Relationship,read",
+                                        "sourceId": "43",
+                                        "destinationId": "8",
+                                        "description": "read",
+                                        "technology": "SQL"
+                                    },
+                                    {
+                                        "id": "50",
+                                        "tags": "Relationship,read",
+                                        "sourceId": "43",
+                                        "destinationId": "6",
+                                        "description": "read",
+                                        "technology": "SQL"
+                                    }
+                                ],
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "33",
+                                "tags": "Element,Component,table",
+                                "name": "crypto",
+                                "description": "crypto_id, coinbase_id, aliases, min_size, max_precision, decimal_points",
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "34",
+                                "tags": "Element,Component,table",
+                                "name": "crypto_ticker",
+                                "description": "crypto_id, time, low, high, open, close, volume",
+                                "relationships": [
+                                    {
+                                        "id": "58",
+                                        "tags": "Relationship",
+                                        "sourceId": "34",
+                                        "destinationId": "33",
+                                        "description": "fk"
+                                    }
+                                ],
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "61",
+                                "tags": "Element,Component,table",
+                                "name": "orchestrator_job",
+                                "description": "orchestrator_id, status, iteration_count, parameters_at_beginning, parameters_at_end",
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "35",
+                                "tags": "Element,Component,table",
+                                "name": "sim_action",
+                                "description": "crypto_id, sim_job_id, time, action, volume, price_usd, fees_usd, fee, tick_cost, bot_index, profit",
+                                "relationships": [
+                                    {
+                                        "id": "45",
+                                        "tags": "Relationship",
+                                        "sourceId": "35",
+                                        "destinationId": "36",
+                                        "description": "fk"
+                                    }
+                                ],
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "36",
+                                "tags": "Element,Component,table",
+                                "name": "sim_job",
+                                "description": "sim_job_id, crypto_id, queue_time, start_time, end_time, status, config, initial_usd, ending_usd, baseline_profit",
+                                "relationships": [
+                                    {
+                                        "id": "62",
+                                        "tags": "Relationship",
+                                        "sourceId": "36",
+                                        "destinationId": "61",
+                                        "description": "fk"
+                                    }
+                                ],
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "37",
+                                "tags": "Element,Component,table",
+                                "name": "tweet",
+                                "description": "tweet_id, twitter_tags, retweet_count, reply_count, like_count, quote_count, language, content, created_at, author_id, author_name, poll, referenced_tweet_twitter_tags, referenced_tweet_content",
+                                "relationships": [
+                                    {
+                                        "id": "44",
+                                        "tags": "Relationship",
+                                        "sourceId": "37",
+                                        "destinationId": "38",
+                                        "description": "fk"
+                                    }
+                                ],
+                                "technology": "table",
+                                "size": 0
+                            },
+                            {
+                                "id": "38",
+                                "tags": "Element,Component,table",
+                                "name": "user",
+                                "description": "name, id",
+                                "technology": "table",
+                                "size": 0
+                            }
+                        ]
+                    },
+                    {
+                        "id": "67",
+                        "tags": "Element,Container",
+                        "name": "database-backup",
+                        "description": "task to backup the db and store it somewhere safe",
+                        "relationships": [
+                            {
+                                "id": "71",
+                                "tags": "Relationship",
+                                "sourceId": "67",
+                                "destinationId": "4",
+                                "description": "restore from backup"
+                            },
+                            {
+                                "id": "69",
+                                "tags": "Relationship",
+                                "sourceId": "67",
+                                "destinationId": "68",
+                                "description": "store database backup"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    },
+                    {
+                        "id": "3",
+                        "tags": "Element,Container",
+                        "name": "db-manager",
+                        "description": "set of tooling to manage database migrations",
+                        "relationships": [
+                            {
+                                "id": "48",
+                                "tags": "Relationship,write",
+                                "sourceId": "3",
+                                "destinationId": "43",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "15",
+                                "tags": "Relationship",
+                                "sourceId": "3",
+                                "destinationId": "4",
+                                "description": "performs database migrations",
+                                "technology": "KNEX.js"
+                            }
+                        ],
+                        "technology": "node, knex.js"
+                    },
+                    {
+                        "id": "49",
+                        "tags": "Element,Container",
+                        "name": "sim-job-orchestrator",
+                        "description": "Orchestrates running many simulations for evaluating and training trading models",
+                        "relationships": [
+                            {
+                                "id": "63",
+                                "tags": "Relationship,write",
+                                "sourceId": "49",
+                                "destinationId": "61",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "53",
+                                "tags": "Relationship",
+                                "sourceId": "49",
+                                "destinationId": "8",
+                                "description": "run job",
+                                "technology": "REST"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    },
+                    {
+                        "id": "8",
+                        "tags": "Element,Container",
+                        "name": "trade-sim-api",
+                        "description": "an api responsible for managing trade simulations, persisting job metadata and results in the common datastore",
+                        "relationships": [
+                            {
+                                "id": "54",
+                                "tags": "Relationship",
+                                "sourceId": "8",
+                                "destinationId": "49",
+                                "description": "communicate result",
+                                "technology": "REST"
+                            },
+                            {
+                                "id": "59",
+                                "tags": "Relationship,write",
+                                "sourceId": "8",
+                                "destinationId": "36",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "14",
+                                "tags": "Relationship",
+                                "sourceId": "8",
+                                "destinationId": "4",
+                                "description": "creates and updates job results",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "56",
+                                "tags": "Relationship",
+                                "sourceId": "8",
+                                "destinationId": "7",
+                                "description": "communicate result",
+                                "technology": "REST"
+                            },
+                            {
+                                "id": "60",
+                                "tags": "Relationship,write",
+                                "sourceId": "8",
+                                "destinationId": "35",
+                                "description": "write",
+                                "technology": "SQL"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    },
+                    {
+                        "id": "5",
+                        "tags": "Element,Container",
+                        "name": "twitter-scraper",
+                        "description": "polling twitter API to backfill and store tweets of known crypto influencers, e.g. elon musk",
+                        "relationships": [
+                            {
+                                "id": "42",
+                                "tags": "Relationship,write",
+                                "sourceId": "5",
+                                "destinationId": "38",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "41",
+                                "tags": "Relationship,write",
+                                "sourceId": "5",
+                                "destinationId": "37",
+                                "description": "write",
+                                "technology": "SQL"
+                            },
+                            {
+                                "id": "12",
+                                "tags": "Relationship",
+                                "sourceId": "5",
+                                "destinationId": "4",
+                                "description": "Writes tweets, twitter users",
+                                "technology": "SQL"
+                            }
+                        ],
+                        "technology": "node, docker"
+                    }
+                ]
+            },
+            {
+                "id": "10",
+                "tags": "Element,Software System",
+                "url": "https://api.twitter.com",
+                "name": "Twitter API",
+                "relationships": [
+                    {
+                        "id": "28",
+                        "tags": "Relationship",
+                        "sourceId": "10",
+                        "destinationId": "1",
+                        "description": "Provides historical tweet information",
+                        "technology": "REST"
+                    },
+                    {
+                        "id": "52",
+                        "tags": "Relationship",
+                        "sourceId": "10",
+                        "destinationId": "5",
+                        "description": "gets user information and latest tweets for users",
+                        "technology": "REST"
+                    }
+                ],
+                "location": "External"
+            }
+        ],
+        "customElements": [],
+        "deploymentNodes": []
+    },
+    "documentation": {
+        "decisions": [
+            {
+                "elementId": "1",
+                "id": "1",
+                "date": "2021-04-11T20:30:54Z",
+                "title": "simulation job queuing handled in-memory",
+                "status": "Accepted",
+                "content": "## Context\ntrade sim jobs can take quite a bit of time to run.\nthe trade sim job algorithm is very synchronous in nature:\n```\ntradeHistory = []\nfor each ticker in allTickersForJobTimeframe(begin, end):\n   given current trade history\n   and current tick\n   does strategy handler indicate we buy, sell, or hold?\n```\n\n## Decision\n1. have create job handler (`POST /cryptoSimJob`) save job, then kick off promise to do job, but not await on that promise\n2. spin up a small recurring task to mark jobs as 'done' if they are older than 5 minutes\n\n## Consequences\n\n### good\n- job creation is fast\n- solution delivered fast\n\n### bad\n- OOME can sometimes happen for really big job timeframes\n- no guarantee jobs will actually finish -> some component must \"timeout\" jobs after some expected interval\n- sometimes jobs running on same box as API causes 'noisy neighbor' problem where API calls take a long time because they are blocked by job computation",
+                "format": "Markdown"
+            }
+        ],
+        "sections": [],
+        "images": []
+    },
+    "views": {
+        "systemContextViews": [
+            {
+                "softwareSystemId": "1",
+                "description": "The context of all of muskbot",
+                "key": "MuskbotContext",
+                "paperSize": "A5_Landscape",
+                "animations": [
+                    {
+                        "order": 1,
+                        "elements": [
+                            "1"
+                        ],
+                        "relationships": []
+                    },
+                    {
+                        "order": 2,
+                        "elements": [
+                            "11"
+                        ],
+                        "relationships": [
+                            "29",
+                            "30"
+                        ]
+                    },
+                    {
+                        "order": 3,
+                        "elements": [
+                            "9",
+                            "10"
+                        ],
+                        "relationships": [
+                            "26",
+                            "27",
+                            "28",
+                            "31"
+                        ]
+                    }
+                ],
+                "enterpriseBoundaryVisible": true,
+                "elements": [
+                    {
+                        "id": "11",
+                        "x": 265,
+                        "y": 1024
+                    },
+                    {
+                        "id": "1",
+                        "x": 920,
+                        "y": 620
+                    },
+                    {
+                        "id": "9",
+                        "x": 1370,
+                        "y": 35
+                    },
+                    {
+                        "id": "10",
+                        "x": 310,
+                        "y": 55
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "29",
+                        "vertices": [
+                            {
+                                "x": 1030,
+                                "y": 1005
+                            }
+                        ]
+                    },
+                    {
+                        "id": "28"
+                    },
+                    {
+                        "id": "27",
+                        "vertices": [
+                            {
+                                "x": 1175,
+                                "y": 280
+                            }
+                        ]
+                    },
+                    {
+                        "id": "26"
+                    },
+                    {
+                        "id": "31",
+                        "vertices": [
+                            {
+                                "x": 1610,
+                                "y": 1150
+                            }
+                        ]
+                    },
+                    {
+                        "id": "30",
+                        "vertices": [
+                            {
+                                "x": 809,
+                                "y": 884
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "containerViews": [
+            {
+                "softwareSystemId": "1",
+                "description": "a container level view of what makes up muskbot",
+                "key": "MuskbotContainerView",
+                "paperSize": "A4_Landscape",
+                "animations": [
+                    {
+                        "order": 1,
+                        "elements": [
+                            "11",
+                            "2",
+                            "3",
+                            "4",
+                            "5",
+                            "6",
+                            "7",
+                            "8",
+                            "9",
+                            "10"
+                        ],
+                        "relationships": [
+                            "55",
+                            "12",
+                            "23",
+                            "56",
+                            "24",
+                            "14",
+                            "25",
+                            "47",
+                            "15",
+                            "17",
+                            "51",
+                            "52",
+                            "31"
+                        ]
+                    },
+                    {
+                        "order": 2,
+                        "elements": [
+                            "49"
+                        ],
+                        "relationships": [
+                            "57",
+                            "53",
+                            "54"
+                        ]
+                    },
+                    {
+                        "order": 3,
+                        "elements": [
+                            "67"
+                        ],
+                        "relationships": []
+                    },
+                    {
+                        "order": 4,
+                        "elements": [
+                            "68"
+                        ],
+                        "relationships": []
+                    }
+                ],
+                "externalSoftwareSystemBoundariesVisible": true,
+                "elements": [
+                    {
+                        "id": "11",
+                        "x": 2920,
+                        "y": 175
+                    },
+                    {
+                        "id": "67",
+                        "x": 185,
+                        "y": 1455
+                    },
+                    {
+                        "id": "68",
+                        "x": 695,
+                        "y": 2085
+                    },
+                    {
+                        "id": "49",
+                        "x": 1755,
+                        "y": 1650
+                    },
+                    {
+                        "id": "2",
+                        "x": 1215,
+                        "y": 445
+                    },
+                    {
+                        "id": "3",
+                        "x": 1830,
+                        "y": 670
+                    },
+                    {
+                        "id": "4",
+                        "x": 560,
+                        "y": 875
+                    },
+                    {
+                        "id": "5",
+                        "x": 55,
+                        "y": 370
+                    },
+                    {
+                        "id": "6",
+                        "x": 1325,
+                        "y": 1040
+                    },
+                    {
+                        "id": "7",
+                        "x": 2370,
+                        "y": 1080
+                    },
+                    {
+                        "id": "8",
+                        "x": 835,
+                        "y": 1455
+                    },
+                    {
+                        "id": "9",
+                        "x": 1970,
+                        "y": 5
+                    },
+                    {
+                        "id": "10",
+                        "x": 815,
+                        "y": 10
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "70",
+                        "vertices": [
+                            {
+                                "x": 450,
+                                "y": 1965
+                            }
+                        ]
+                    },
+                    {
+                        "id": "72"
+                    },
+                    {
+                        "id": "71",
+                        "vertices": [
+                            {
+                                "x": 405,
+                                "y": 1030
+                            }
+                        ]
+                    },
+                    {
+                        "id": "51"
+                    },
+                    {
+                        "id": "52"
+                    },
+                    {
+                        "id": "53"
+                    },
+                    {
+                        "id": "54",
+                        "vertices": [
+                            {
+                                "x": 1070,
+                                "y": 1850
+                            }
+                        ]
+                    },
+                    {
+                        "id": "31"
+                    },
+                    {
+                        "id": "17"
+                    },
+                    {
+                        "id": "15"
+                    },
+                    {
+                        "id": "14"
+                    },
+                    {
+                        "id": "25"
+                    },
+                    {
+                        "id": "24"
+                    },
+                    {
+                        "id": "12"
+                    },
+                    {
+                        "id": "23"
+                    },
+                    {
+                        "id": "55",
+                        "vertices": [
+                            {
+                                "x": 1520,
+                                "y": 1480
+                            }
+                        ]
+                    },
+                    {
+                        "id": "56",
+                        "vertices": [
+                            {
+                                "x": 1635,
+                                "y": 1585
+                            }
+                        ]
+                    },
+                    {
+                        "id": "57"
+                    },
+                    {
+                        "id": "69"
+                    },
+                    {
+                        "id": "47"
+                    }
+                ]
+            }
+        ],
+        "componentViews": [
+            {
+                "key": "DatabaseComponentVIew",
+                "paperSize": "A4_Landscape",
+                "animations": [
+                    {
+                        "order": 1,
+                        "elements": [
+                            "33",
+                            "34",
+                            "35",
+                            "36",
+                            "37",
+                            "38",
+                            "2",
+                            "5",
+                            "6",
+                            "7",
+                            "8",
+                            "9",
+                            "10"
+                        ],
+                        "relationships": [
+                            "44",
+                            "55",
+                            "45",
+                            "56",
+                            "24",
+                            "58",
+                            "59",
+                            "39",
+                            "60",
+                            "40",
+                            "51",
+                            "41",
+                            "52",
+                            "42"
+                        ]
+                    },
+                    {
+                        "order": 2,
+                        "elements": [
+                            "11"
+                        ],
+                        "relationships": [
+                            "23"
+                        ]
+                    },
+                    {
+                        "order": 3,
+                        "elements": [
+                            "43"
+                        ],
+                        "relationships": [
+                            "66",
+                            "50"
+                        ]
+                    },
+                    {
+                        "order": 4,
+                        "elements": [
+                            "49"
+                        ],
+                        "relationships": [
+                            "57",
+                            "53",
+                            "54"
+                        ]
+                    },
+                    {
+                        "order": 5,
+                        "elements": [
+                            "61"
+                        ],
+                        "relationships": [
+                            "62",
+                            "63"
+                        ]
+                    }
+                ],
+                "containerId": "4",
+                "externalContainerBoundariesVisible": true,
+                "elements": [
+                    {
+                        "id": "11",
+                        "x": 10,
+                        "y": 15
+                    },
+                    {
+                        "id": "33",
+                        "x": 2485,
+                        "y": 1310
+                    },
+                    {
+                        "id": "34",
+                        "x": 2970,
+                        "y": 1695
+                    },
+                    {
+                        "id": "35",
+                        "x": 2460,
+                        "y": 1960
+                    },
+                    {
+                        "id": "36",
+                        "x": 1745,
+                        "y": 1945
+                    },
+                    {
+                        "id": "37",
+                        "x": 1920,
+                        "y": 1315
+                    },
+                    {
+                        "id": "38",
+                        "x": 1385,
+                        "y": 1325
+                    },
+                    {
+                        "id": "49",
+                        "x": 40,
+                        "y": 2030
+                    },
+                    {
+                        "id": "2",
+                        "x": 2720,
+                        "y": 760
+                    },
+                    {
+                        "id": "5",
+                        "x": 1655,
+                        "y": 740
+                    },
+                    {
+                        "id": "6",
+                        "x": 885,
+                        "y": 555
+                    },
+                    {
+                        "id": "7",
+                        "x": 35,
+                        "y": 545
+                    },
+                    {
+                        "id": "8",
+                        "x": 225,
+                        "y": 1165
+                    },
+                    {
+                        "id": "9",
+                        "x": 2710,
+                        "y": 35
+                    },
+                    {
+                        "id": "61",
+                        "x": 980,
+                        "y": 1920
+                    },
+                    {
+                        "id": "43",
+                        "x": 885,
+                        "y": 1175
+                    },
+                    {
+                        "id": "10",
+                        "x": 1655,
+                        "y": 40
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "50"
+                    },
+                    {
+                        "id": "60",
+                        "vertices": [
+                            {
+                                "x": 1105,
+                                "y": 1685
+                            },
+                            {
+                                "x": 2385,
+                                "y": 1720
+                            }
+                        ]
+                    },
+                    {
+                        "id": "40"
+                    },
+                    {
+                        "id": "51"
+                    },
+                    {
+                        "id": "63"
+                    },
+                    {
+                        "id": "41"
+                    },
+                    {
+                        "id": "52"
+                    },
+                    {
+                        "id": "62"
+                    },
+                    {
+                        "id": "42"
+                    },
+                    {
+                        "id": "53",
+                        "vertices": [
+                            {
+                                "x": 535,
+                                "y": 1835
+                            }
+                        ]
+                    },
+                    {
+                        "id": "54",
+                        "vertices": [
+                            {
+                                "x": 360,
+                                "y": 1725
+                            }
+                        ]
+                    },
+                    {
+                        "id": "24"
+                    },
+                    {
+                        "id": "23"
+                    },
+                    {
+                        "id": "44"
+                    },
+                    {
+                        "id": "55",
+                        "vertices": [
+                            {
+                                "x": 210,
+                                "y": 1075
+                            }
+                        ]
+                    },
+                    {
+                        "id": "45"
+                    },
+                    {
+                        "id": "56"
+                    },
+                    {
+                        "id": "66"
+                    },
+                    {
+                        "id": "57",
+                        "vertices": [
+                            {
+                                "x": 85,
+                                "y": 1080
+                            },
+                            {
+                                "x": 85,
+                                "y": 1775
+                            }
+                        ]
+                    },
+                    {
+                        "id": "58"
+                    },
+                    {
+                        "id": "59",
+                        "vertices": [
+                            {
+                                "x": 710,
+                                "y": 1720
+                            },
+                            {
+                                "x": 1430,
+                                "y": 1735
+                            }
+                        ]
+                    },
+                    {
+                        "id": "39"
+                    }
+                ]
+            }
+        ],
+        "configuration": {
+            "branding": {},
+            "styles": {
+                "relationships": [
+                    {
+                        "tag": "write",
+                        "color": "#b80000",
+                        "routing": "Direct"
+                    },
+                    {
+                        "tag": "read",
+                        "color": "#00a851"
+                    }
+                ],
+                "elements": []
+            },
+            "terminology": {},
+            "lastSavedView": "DatabaseComponentVIew",
+            "themes": []
+        },
+        "customViews": [],
+        "systemLandscapeViews": [],
+        "dynamicViews": [],
+        "deploymentViews": [],
+        "filteredViews": []
+    },
+    "properties": {}
+}
